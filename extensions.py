@@ -124,6 +124,7 @@ extension_paths = {
         '.pptx':   'text\\presentations',
         # programming
         '.c':      'programming\\c&c++',
+        '.cpp':      'programming\\c&c++',
         '.class':  'programming\\java',
         '.java':   'programming\\java',
         '.py':     'programming\\python',

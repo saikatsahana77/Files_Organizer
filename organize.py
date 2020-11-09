@@ -1,5 +1,6 @@
 import os
 import extensions
+import extensions_linux
 from pathlib import Path
 
 
@@ -20,9 +21,15 @@ def Organize(path):
         # create all dirs to organise files
         for ext in all_fext:
             try:
-                ex = extensions.extension_paths[ext]
+                if os.name == "nt":
+                    ex = extensions.extension_paths[ext]
+                else:
+                    ex = extensions_linux.extension_paths_lin[ext]
             except:
-                ex = "other\\uncategorized"
+                if os.name== "nt":
+                    ex = "other\\uncategorized"
+                else:
+                    ex = "other/uncategorized"
             f_path = os.path.join(target_dir, ex)
             if os.path.isdir(f_path) == False:
                 if ext:
@@ -33,9 +40,15 @@ def Organize(path):
             if os.path.isdir(os.path.join(target_dir, f)) == False:
                 _, ext = os.path.splitext(f)
                 try:
-                    ex = extensions.extension_paths[ext]
+                    if os.name == "nt":
+                        ex = extensions.extension_paths[ext]
+                    else:
+                        ex = extensions_linux.extension_paths_lin[ext]
                 except:
-                    ex = "other\\uncategorized"
+                    if os.name== "nt":
+                        ex = "other\\uncategorized"
+                    else:
+                        ex = "other/uncategorized"
                 old_path = os.path.join(target_dir, f)
                 new_path = os.path.join(target_dir, ex, f)
                 os.rename(old_path, new_path)
